@@ -1,0 +1,36 @@
+from model import featureNames, model, Encode
+
+
+def preProcess(data):
+
+    data[0] = Encode["Encoders"]["Soil Type"].transform([data[0]])[0]
+    data[1] = Encode["Encoders"]["Crop Type"].transform([data[1]])[0]
+
+    return data
+
+
+def handler(event):
+    # features = ["Sandy","Maize",36,0,0]
+    features = [event[featureName] for featureName in featureNames]
+
+    features = preProcess(features)
+    print(features)
+
+    prediction = model.predict([features])[0]
+    prediction = Encode["InvertEncodings"]["Fertilizer Name"][prediction]
+
+    print("\n\n\nPrediction : ", prediction)
+    print("\n---Sent---")
+
+    return {"prediction": prediction}
+
+
+# TEST
+if __name__ == "__main__":
+    handler({
+        "soilType": "Sandy",
+        "cropType": "Maize",
+        "nitrogen": 36,
+        "potassium": 0,
+        "phosphorous": 0
+    })
