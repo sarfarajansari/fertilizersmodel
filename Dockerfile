@@ -61,7 +61,7 @@ COPY --from=build-image2 ${FUNCTION_DIR} ${FUNCTION_DIR}
 ADD https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie /usr/bin/aws-lambda-rie
 RUN chmod 755 /usr/bin/aws-lambda-rie
 # Copy handler function
-COPY ./app /home/app/
+COPY . /home/app/
 COPY entry.sh /
 ENTRYPOINT [ "/entry.sh" ]
 CMD [ "app.handler" ]
