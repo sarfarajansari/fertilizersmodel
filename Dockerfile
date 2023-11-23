@@ -56,8 +56,7 @@ ARG FUNCTION_DIR
 WORKDIR ${FUNCTION_DIR}
 # Copy in the built dependencies
 COPY --from=build-image2 ${FUNCTION_DIR} ${FUNCTION_DIR}
-RUN apk add jpeg-dev zlib-dev libjpeg-turbo-dev \
-    && apk add chromium chromium-chromedriver
+
 # (Optional) Add Lambda Runtime Interface Emulator and use a script in the ENTRYPOINT for simpler local runs
 ADD https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie /usr/bin/aws-lambda-rie
 RUN chmod 755 /usr/bin/aws-lambda-rie
