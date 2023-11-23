@@ -6,7 +6,7 @@ ARG DISTRO_VERSION="3.12"
 
 # Stage 1 - bundle base image + runtime
 # Grab a fresh copy of the image and install GCC
-FROM public.ecr.aws/lambda/python:${RUNTIME_VERSION}} AS base-image
+FROM public.ecr.aws/lambda/python:${RUNTIME_VERSION} AS base-image
 
 
 # Stage 1 - Add app related dependencies
