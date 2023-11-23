@@ -1,36 +1,46 @@
+name: Update AWS Lambda Function
+
 on:
   push:
-    branches: fertilisers-lambda-function
+    branches:
+      - fertilisers-lambda-function
 
 jobs:
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
+  update:
+    runs-on: fertilisers-lambda-function
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Install Python
+        uses: actions/setup-python@v3
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
+          python-version: '3.9'
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Build, tag, and push the image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: crawlingengineservice
-          IMAGE_TAG: latest
+      - name: Install dependencies
         run: |
-          # Build a docker container and push it to ECR 
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          echo "Pushing image to ECR..."
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          python -m pip install -r requirements.txt
+
+      - name: Build Lambda deployment package
+        run: |
+          zip -r lambda_package.zip src
+
+      - name: Upload to S3 bucket
+        uses: aws-actions/upload-to-s3@v2
+        with:
+          bucket: fertilizerbucket
+          key: lambda_package.zip
+          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: ap-south-1
+
+      - name: Update AWS Lambda function
+        uses: aws-actions/update-function-code@v1
+        with:
+          function-name: fertilizersModel
+          s3-bucket: your-s3-bucket
+          s3-key: lambda_package.zip
+          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: ap-south-1
