@@ -10,8 +10,11 @@ def preProcess(data):
 
 
 def handler(event,context):
-    # features = ["Sandy","Maize",36,0,0]
-    features = [event[featureName] for featureName in featureNames]
+    data = event
+    if "queryStringParameters" in event:
+        data = event["queryStringParameters"]
+        
+    features = [data[featureName] for featureName in featureNames]
 
     features = preProcess(features)
     print(features)
