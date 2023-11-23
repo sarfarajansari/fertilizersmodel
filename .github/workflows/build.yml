@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Deploy code to Lambda
-      uses: denzalman/lambda-python-action@v2.0.0
+      uses: denzalman/lambda-python-action@main
       with:
         lambda_layer_arn: 'arn:aws:lambda:ap-south-1:780431747353:layer:fertilizerDependencyLayer'
         lambda_function_name: 'fertilizersModel'
