@@ -6,10 +6,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install Python dependencies
-        uses: py-actions/py-dependency-install@v4
+
+
+      - uses: actions/setup-python@v2
         with:
-          path: "./requirements.txt"
+          python-version: '3.9'
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+      - run: pip test
+
+      
       - name: Upload ZIP to S3
         uses: NotCoffee418/s3-zip-upload@v1.3
         env:
