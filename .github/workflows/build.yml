@@ -27,7 +27,7 @@ jobs:
         env:
           LAMBDA_NAME: fertilizersModel
           AWS_S3_BUCKET: fertilizerbucket
-          AWS_S3_KEY: builds/example-lambda.v1.0.0.zip
+          AWS_S3_KEY: build.zip
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ap-south-1
