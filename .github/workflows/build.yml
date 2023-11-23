@@ -13,9 +13,9 @@ jobs:
           python-version: '3.9'
           cache: 'pip'
       - run: pip install -r requirements.txt
-      - run: pip test
 
-      
+
+
       - name: Upload ZIP to S3
         uses: NotCoffee418/s3-zip-upload@v1.3
         env:
