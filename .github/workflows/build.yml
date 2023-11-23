@@ -2,20 +2,20 @@ name: Upload to S3
 on: [push]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Upload ZIP to S3
-        uses: NotCoffee418/s3-zip-upload@v1.3
-        env:
-          AWS_SECRET_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          BUCKET_NAME: fertilizerbucket
-          AWS_REGION: ap-south-1
-          SOURCE_MODE: ZIP
-          SOURCE_PATH: ./
-          DEST_FILE: build.zip
+  # build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Upload ZIP to S3
+  #       uses: NotCoffee418/s3-zip-upload@v1.3
+  #       env:
+  #         AWS_SECRET_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #         BUCKET_NAME: fertilizerbucket
+  #         AWS_REGION: ap-south-1
+  #         SOURCE_MODE: ZIP
+  #         SOURCE_PATH: ./
+  #         DEST_FILE: build.zip
 
 
   # deploy:
