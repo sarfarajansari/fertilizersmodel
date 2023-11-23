@@ -10,6 +10,6 @@ FROM public.ecr.aws/lambda/python:${RUNTIME_VERSION} AS base-image
 COPY requirements.txt .
 # RUN python${RUNTIME_VERSION} -m pip install --upgrade pip
 # RUN python${RUNTIME_VERSION} -m pip install -r requirements.txt --target ${FUNCTION_DIR}
-RUN mkdir -p ${FUNCTION_DIR}
+# RUN mkdir -p ${FUNCTION_DIR}
 COPY . ${FUNCTION_DIR}
 CMD [ "app.handler" ]
