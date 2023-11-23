@@ -6,8 +6,8 @@ on:
       - fertilisers-lambda-function
 
 jobs:
-  update:
-    runs-on: fertilisers-lambda-function
+  deploy:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
