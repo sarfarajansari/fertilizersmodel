@@ -9,7 +9,7 @@ def preProcess(data):
     return data
 
 
-def handler(event):
+def handler(event,context):
     # features = ["Sandy","Maize",36,0,0]
     features = [event[featureName] for featureName in featureNames]
 
