@@ -40,5 +40,5 @@ jobs:
       - name: update
         run: |
           aws lambda update-function-code \
-              --function-name FUNCTIONNAME \
-              --image-uri IMAGE_URI
+              --function-name finalmodeldeployment \
+              --image-uri 780431747353.dkr.ecr.ap-south-1.amazonaws.com/gupshuptestrepo:latest
