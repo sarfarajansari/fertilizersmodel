@@ -29,6 +29,7 @@ def handler(event,context):
 
 # TEST
 if __name__ == "__main__":
+    
     handler({
         "soilType": "Sandy",
         "cropType": "Maize",
