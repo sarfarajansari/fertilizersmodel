@@ -1,5 +1,4 @@
 from model import featureNames, model, Encode
-from sklearn import semi_supervised
 
 def preProcess(data):
 
